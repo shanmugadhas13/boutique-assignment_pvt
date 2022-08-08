@@ -11,7 +11,7 @@ spec:
       labels:
         app: recommendationservice
     spec:
-      serviceAccountName: boutique
+      serviceAccountName: default
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
@@ -22,10 +22,10 @@ spec:
           periodSeconds: 5
           exec:
             command: ["/bin/grpc_health_probe", "-addr=:8080"]
-        # livenessProbe:
-        #   periodSeconds: 5
-        #   exec:
-        #     command: ["/bin/grpc_health_probe", "-addr=:8080"]
+        livenessProbe:
+          periodSeconds: 5
+          exec:
+            command: ["/bin/grpc_health_probe", "-addr=:8080"]
         env:
         - name: PORT
           value: "8080"
@@ -33,11 +33,11 @@ spec:
           value: "productcatalogservice:3550"
         resources:
           requests:
-            cpu: 100m
-            memory: 220Mi
+            cpu: 75m
+            memory: 120Mi
           limits:
-            cpu: 200m
-            memory: 450Mi
+            cpu: 150m
+            memory: 200Mi
 ---
 apiVersion: v1
 kind: Service

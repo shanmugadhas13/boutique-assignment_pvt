@@ -12,7 +12,7 @@ spec:
         app: adservice
     spec:
       serviceAccountName: default
-      terminationGracePeriodSeconds: 5
+      terminationGracePeriodSeconds: 15
       containers:
       - name: server
         image: gcr.io/google-samples/microservices-demo/adservice:v0.3.4
