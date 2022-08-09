@@ -21,7 +21,7 @@ spec:
         sidecar.istio.io/rewriteAppHTTPProbers: "true"
     spec:
       serviceAccountName: default
-      terminationGracePeriodSeconds: 5
+      terminationGracePeriodSeconds: 40
       restartPolicy: Always
       initContainers:
       - command:
@@ -38,20 +38,32 @@ spec:
         image: busybox:latest
         env:
         - name: FRONTEND_ADDR
-          value: "frontend:80"
+          value: "10.244.1.9:8080"
       containers:
       - name: main
         image: gcr.io/google-samples/microservices-demo/loadgenerator:v0.3.1
         env:
         - name: FRONTEND_ADDR
-          value: "frontend:80"
+          value: "10.244.1.9:8080" 
         - name: USERS
-          value: "10"
+          value: "5"
         resources:
           requests:
-            cpu: 300m
+            cpu: 160m
             memory: 256Mi
           limits:
-            cpu: 500m
+            cpu: 250m
             memory: 512Mi
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: loadgenerator
+spec:
+  type: ClusterIP
+  selector:
+    app: loadgenerator
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
