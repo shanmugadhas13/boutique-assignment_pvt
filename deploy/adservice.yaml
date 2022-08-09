@@ -23,13 +23,13 @@ spec:
           value: "9555"
         resources:
           requests:
-            cpu: 200m
-            memory: 180Mi
+            cpu: 100m
+            memory: 140Mi
           limits:
-            cpu: 300m
-            memory: 300Mi
+            cpu: 180m
+            memory: 200Mi
         readinessProbe:
-          initialDelaySeconds: 20
+          initialDelaySeconds: 25
           periodSeconds: 15
           exec:
             command: ["/bin/grpc_health_probe", "-addr=:9555"]
