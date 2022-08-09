@@ -46,4 +46,4 @@ spec:
   ports:
   - name: grpc
     port: 50051
-    targetPort: 50052
+    targetPort: 50051
